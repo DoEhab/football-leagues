@@ -10,5 +10,5 @@ import java.util.List;
  * Created by Doha on 20/07/19.
  */
 public interface LeaguesViewModel {
-    Flowable<LeaguesDataResponse> getLeaguesData();
+    Flowable<List<Competitions>> getLeaguesData();
 }

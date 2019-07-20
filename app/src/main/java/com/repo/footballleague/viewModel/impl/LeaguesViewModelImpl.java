@@ -21,7 +21,7 @@ public class LeaguesViewModelImpl implements LeaguesViewModel {
     }
 
     @Override
-    public Flowable<LeaguesDataResponse> getLeaguesData() {
+    public Flowable<List<Competitions>> getLeaguesData() {
         return leaguesAPI.getLeaguesData().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

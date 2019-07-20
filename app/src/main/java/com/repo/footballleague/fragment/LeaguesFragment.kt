@@ -22,7 +22,7 @@ import javax.inject.Inject
  * A simple [Fragment] subclass.
  *
  */
-class LeaguesFragment : Fragment() {
+class LeaguesFragment : FootballLeaguesBaseFragment() {
     @Inject
     lateinit var viewModel: LeaguesViewModel
     private val compositeDisposable: CompositeDisposable? = CompositeDisposable()
@@ -43,18 +43,21 @@ class LeaguesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         subscribeToGetLeaguesData()
     }
 
     private fun subscribeToGetLeaguesData() {
+        showProgressDialog()
         compositeDisposable?.add(viewModel.leaguesData.subscribe(
             {
+                dismissProgressDialog()
                 rv_leagues_data.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 rv_leagues_data.adapter = LeaguesDataAdapter(context, it)
-            },{
-                Log.e("SERVICE CALL ERROR",it.message)
-            }))
+            }, {
+                dismissProgressDialog()
+                Log.e("SERVICE CALL ERROR", it.message)
+            })
+        )
     }
 
     override fun onDestroy() {

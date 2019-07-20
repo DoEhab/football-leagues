@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.repo.footballleague.R
+import com.repo.footballleague.model.Competitions
 import com.repo.footballleague.model.LeaguesDataResponse
 import kotlinx.android.synthetic.main.league_data_item.view.*
 
@@ -14,7 +15,7 @@ import kotlinx.android.synthetic.main.league_data_item.view.*
  */
 class LeaguesDataAdapter(
     val context: Context?,
-    private val leaguesData: LeaguesDataResponse
+    private val leaguesData: List<Competitions>
 ) :
     RecyclerView.Adapter<LeaguesDataAdapter.ItemsViewHolder>() {
 
@@ -31,25 +32,25 @@ class LeaguesDataAdapter(
     override fun onBindViewHolder(holder: ItemsViewHolder, position: Int) {
 
         holder.items.txt_league_id.text =
-            context?.getString(R.string.league_id).plus(leaguesData.competitions[position].id)
+            context?.getString(R.string.league_id).plus(leaguesData[position].id)
 
         holder.items.txt_league_name.text =
-            context?.getString(R.string.league_name).plus(leaguesData.competitions[position].leagueName)
-        if (leaguesData.competitions[position].currentSeason == null) {
+            context?.getString(R.string.league_name).plus(leaguesData[position].leagueName)
+        if (leaguesData[position].currentSeason == null) {
             holder.items.txt_start_date.visibility = View.GONE
             holder.items.txt_end_date.visibility = View.GONE
         } else {
             holder.items.txt_start_date.text =
-                context?.getString(R.string.start_date).plus(leaguesData.competitions[position].currentSeason?.startDate)
+                context?.getString(R.string.start_date).plus(leaguesData[position].currentSeason?.startDate)
 
             holder.items.txt_end_date.text =
-                context?.getString(R.string.end_date).plus(leaguesData.competitions[position].currentSeason?.endDate)
+                context?.getString(R.string.end_date).plus(leaguesData[position].currentSeason?.endDate)
         }
 
     }
 
     override fun getItemCount(): Int {
-        return leaguesData.competitions.size
+        return leaguesData.size
     }
 
     class ItemsViewHolder(val items: View) : RecyclerView.ViewHolder(items) {

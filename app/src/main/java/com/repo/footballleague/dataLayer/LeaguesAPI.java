@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface LeaguesAPI {
 
-    Flowable<LeaguesDataResponse> getLeaguesData();
+    Flowable<List<Competitions>> getLeaguesData();
 
 }
