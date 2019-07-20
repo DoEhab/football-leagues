@@ -3,6 +3,7 @@ package com.repo.footballleague.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,10 @@ import android.view.ViewGroup
 import com.repo.footballleague.FootballLeagueApplication
 
 import com.repo.footballleague.R
+import com.repo.footballleague.adapter.LeaguesDataAdapter
 import com.repo.footballleague.viewModel.LeaguesViewModel
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.android.synthetic.main.fragment_leagues.*
 import javax.inject.Inject
 
 
@@ -47,6 +50,8 @@ class LeaguesFragment : Fragment() {
     private fun subscribeToGetLeaguesData() {
         compositeDisposable?.add(viewModel.leaguesData.subscribe(
             {
+                rv_leagues_data.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                rv_leagues_data.adapter = LeaguesDataAdapter(context, it)
             },{
                 Log.e("SERVICE CALL ERROR",it.message)
             }))

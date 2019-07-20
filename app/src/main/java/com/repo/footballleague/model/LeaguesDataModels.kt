@@ -7,18 +7,17 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class LeaguesDataResponse(
- var competitions: List<Competitions>
+    var competitions: List<Competitions>
 )
-
 
 data class Competitions(
     var id: Int,
     @SerializedName("name")
     var leagueName: String,
-    var currentSeason: CurrentSeason
+    var currentSeason: CurrentSeason?
 )
 
 data class CurrentSeason(
-    var startDate: String,
+    var startDate: String?,
     var endDate: String
 )
